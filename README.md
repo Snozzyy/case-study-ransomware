@@ -1,2 +1,2 @@
 # case-study-ransomware
-Files required for ransomwaree case study in Ethical Hacking
+Files required for ransomware case study in Ethical Hacking
